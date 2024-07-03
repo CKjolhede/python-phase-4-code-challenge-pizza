@@ -53,8 +53,18 @@ class Pizzas(Resource):
 
 api.add_resource(Pizzas, '/pizzas')   
 
+class Restaurant_pizzas(Resource):
+    def post(self):
+        req_data = request.get_json()
+        try:
+            rp = Restaurant_pizza(**req_data)
+            db.session.add(rp)
+            db.session.commit()
+            return make_response(rp.to_dict(), 201)
+        except Exception:
+            return make_response({"errors": ["validation errors"]}, 400)
 
-
+api.add_resource(Restaurant_pizzas, '/restaurant_pizzas')
 
 if __name__ == "__main__":
     

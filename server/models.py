@@ -52,15 +52,15 @@ class Restaurant_pizza(db.Model, SerializerMixin):
 
     id = db.Column(db.Integer, primary_key=True)
     price = db.Column(db.Integer, nullable=False)
-    restaurant_id = db.Column(db.Integer, db.ForeignKey("restaurants.id"))
     pizza_id = db.Column(db.Integer, db.ForeignKey("pizzas.id"))
+    restaurant_id = db.Column(db.Integer, db.ForeignKey("restaurants.id"))
 
     # add relationships
     restaurant=db.relationship("Restaurant", back_populates="restaurant_pizzas")
     pizza = db.relationship("Pizza", back_populates="restaurant_pizzas")
     
     # add serialization rules
-    serializer_rules = ("-restaurant.restaurant_pizzas", "-pizza.restaurant_pizzas", "-restaurant.restaurant_pizzas")
+    serializer_rules = ("-restaurant.restaurant_pizzas", "-pizza.restaurant_pizzas")
     
     # add validation
     @validates("price")
