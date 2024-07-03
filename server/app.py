@@ -46,6 +46,15 @@ class RestaurantById(Resource):
 
 api.add_resource(RestaurantById, '/restaurants/<int:id>')
 
+class Pizzas(Resource):
+    def get(self):
+        zas = [p.to_dict() for p in Pizza.query.all()]
+        return make_response(zas, 200)     
+
+api.add_resource(Pizzas, '/pizzas')   
+
+
+
 
 if __name__ == "__main__":
     
