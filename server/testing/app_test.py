@@ -1,4 +1,4 @@
-from models import Restaurant, RestaurantPizza, Pizza
+from models import Restaurant, Restaurant_pizza, Pizza
 from app import app, db
 from faker import Faker
 
@@ -125,7 +125,7 @@ class TestApp:
             db.session.commit()
 
             # delete if existing in case price differs
-            restaurant_pizza = RestaurantPizza.query.filter_by(
+            restaurant_pizza = Restaurant_pizza.query.filter_by(
                 pizza_id=pizza.id, restaurant_id=restaurant.id).one_or_none()
             if restaurant_pizza:
                 db.session.delete(restaurant_pizza)
@@ -150,8 +150,8 @@ class TestApp:
             assert response['pizza']
             assert response['restaurant']
 
-            query_result = RestaurantPizza.query.filter(
-                RestaurantPizza.restaurant_id == restaurant.id, RestaurantPizza.pizza_id == pizza.id).first()
+            query_result = Restaurant_pizza.query.filter(
+                Restaurant_pizza.restaurant_id == restaurant.id, Restaurant_pizza.pizza_id == pizza.id).first()
             assert query_result.price == 3
 
     def test_400_for_validation_error(self):

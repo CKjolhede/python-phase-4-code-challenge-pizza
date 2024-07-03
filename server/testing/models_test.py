@@ -1,11 +1,11 @@
 import pytest
 from app import app
-from models import db, Restaurant, Pizza, RestaurantPizza
+from models import db, Restaurant, Pizza, Restaurant_pizza
 from faker import Faker
 
 
-class TestRestaurantPizza:
-    '''Class RestaurantPizza in models.py'''
+class TestRestaurant_pizza:
+    '''Class Restaurant_pizza in models.py'''
 
     def test_price_between_1_and_30(self):
         '''requires price between 1 and 30.'''
@@ -19,9 +19,9 @@ class TestRestaurantPizza:
             db.session.add(restaurant)
             db.session.commit()
 
-            restaurant_pizza_1 = RestaurantPizza(
+            restaurant_pizza_1 = Restaurant_pizza(
                 restaurant_id=restaurant.id, pizza_id=pizza.id, price=1)
-            restaurant_pizza_2 = RestaurantPizza(
+            restaurant_pizza_2 = Restaurant_pizza(
                 restaurant_id=restaurant.id, pizza_id=pizza.id, price=30)
             db.session.add(restaurant_pizza_1)
             db.session.add(restaurant_pizza_2)
@@ -40,7 +40,7 @@ class TestRestaurantPizza:
                 db.session.add(restaurant)
                 db.session.commit()
 
-                restaurant_pizza = RestaurantPizza(
+                restaurant_pizza = Restaurant_pizza(
                     restaurant_id=restaurant.id, pizza_id=pizza.id, price=0)
                 db.session.add(restaurant_pizza)
                 db.session.commit()
@@ -58,7 +58,7 @@ class TestRestaurantPizza:
                 db.session.add(restaurant)
                 db.session.commit()
 
-                restaurant_pizza = RestaurantPizza(
+                restaurant_pizza = Restaurant_pizza(
                     restaurant_id=restaurant.id, pizza_id=pizza.id, price=31)
                 db.session.add(restaurant_pizza)
                 db.session.commit()
