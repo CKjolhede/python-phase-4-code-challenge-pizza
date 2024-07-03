@@ -35,6 +35,14 @@ class RestaurantById(Resource):
             return make_response(rest.to_dict(rules = ('restaurant_pizzas',)), 200)
         else:
             return make_response({"error": "Restaurant not found"}, 404)
+        
+    def delete(self, id):
+        if rest := Restaurant.query.filter(Restaurant.id == id).first():
+            db.session.delete(rest)
+            db.session.commit()
+            return make_response("", 204)
+        else:
+            return make_response({"error": "Restaurant not found"}, 404)
 
 api.add_resource(RestaurantById, '/restaurants/<int:id>')
 
